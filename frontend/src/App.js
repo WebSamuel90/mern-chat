@@ -1,12 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import LoginScreen from './screens/LoginScreen'
+import HomeScreen from './screens/HomeScreen'
 
 const App = () => {
   return (
     <Router>
       <main>
-        <Route path='/' component={LoginScreen} />
+        <Route path='/login' component={LoginScreen} />
+        <Route path='/' component={HomeScreen} />
       </main>
     </Router>
   )
