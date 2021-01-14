@@ -1,6 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../actions/userActions'
 
-const LoginScreen = () => {
+const LoginScreen = ({ location, history }) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+
+  const redirect = location.search ? location.search.split('=')[1] : '/'
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect)
+    }
+  }, [history, userInfo, redirect])
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    dispatch(login(email, password))
+  }
+
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
@@ -19,7 +42,7 @@ const LoginScreen = () => {
           </p>
         </div>
 
-        <form className='mt-8 space-y-6'>
+        <form className='mt-8 space-y-6' onSubmit={submitHandler}>
           <div className='rounded-md shadow-sm -space-y-px'>
             <div>
               <label for='email-address' className='sr-only'>
@@ -28,6 +51,7 @@ const LoginScreen = () => {
               <input
                 id='email-address'
                 name='email'
+                onChange={(e) => setEmail(e.target.value)}
                 type='email'
                 autocomplete='email'
                 required
@@ -43,6 +67,7 @@ const LoginScreen = () => {
               <input
                 id='password'
                 name='password'
+                onChange={(e) => setPassword(e.target.value)}
                 type='password'
                 autocomplete='current-password'
                 className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
