@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/userActions'
 
@@ -9,7 +8,8 @@ const LoginScreen = ({ location, history }) => {
 
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  // const { loading, error, userInfo } = userLogin
+  const { userInfo } = userLogin
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
@@ -45,15 +45,13 @@ const LoginScreen = ({ location, history }) => {
         <form className='mt-8 space-y-6' onSubmit={submitHandler}>
           <div className='rounded-md shadow-sm -space-y-px'>
             <div>
-              <label for='email-address' className='sr-only'>
-                Email address
-              </label>
+              <label className='sr-only'>Email address</label>
               <input
                 id='email-address'
                 name='email'
                 onChange={(e) => setEmail(e.target.value)}
                 type='email'
-                autocomplete='email'
+                autoComplete='email'
                 required
                 className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:§-10 sm:text-sm'
                 placeholder='Email address'
@@ -61,15 +59,13 @@ const LoginScreen = ({ location, history }) => {
             </div>
 
             <div>
-              <label for='password' className='sr-only'>
-                Password
-              </label>
+              <label className='sr-only'>Password</label>
               <input
                 id='password'
                 name='password'
                 onChange={(e) => setPassword(e.target.value)}
                 type='password'
-                autocomplete='current-password'
+                autoComplete='current-password'
                 className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
                 required
                 placeholder='Password'
@@ -84,18 +80,15 @@ const LoginScreen = ({ location, history }) => {
                   type='checkbox'
                   className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
                 />
-                <label
-                  for='remember-me'
-                  className='ml-2 block text-sm text-gray-900'
-                >
+                <label className='ml-2 block text-sm text-gray-900'>
                   Remember me
                 </label>
               </div>
 
-              <div class='text-sm'>
+              <div className='text-sm'>
                 <a
                   href='#'
-                  class='font-medium text-indigo-600 hover:text-indigo-500'
+                  className='font-medium text-indigo-600 hover:text-indigo-500'
                 >
                   Forgot your password?
                 </a>
